@@ -6,15 +6,20 @@ p {
 
 .target {
   position: absolute;
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   top: 150px;
   left: 100px;
   line-height: 100px;
   text-align: center;
-  background: #ee8;
+  background: lightgray;
   color: #333;
   font-weight: bold;
   border: 1px solid #333;
   box-sizing: border-box;
+  padding: 10px;
+}
+.box {
+  background: skyblue;
+  height: 100%;
 }
