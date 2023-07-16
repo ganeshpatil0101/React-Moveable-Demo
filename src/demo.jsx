@@ -54,13 +54,7 @@ export default function Demo() {
   const onScaleCb = (e) => {
     e.target.style.transform = e.drag.transform;
     const cValues = e.target.getBoundingClientRect();
-
     setEles(updateHeightWidth(cValues, e.target.id));
-    // setBoxText(
-    //   `w:${Math.round(cValues.width)} X h:${Math.round(
-    //     cValues.height
-    //   )} `
-    // );
   };
 
   return (
