@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Moveable from 'react-moveable';
 import { v4 as uuidv4 } from 'uuid';
+import { DimensionViewable } from './Dimensional.jsx';
+
 //https://github.com/daybrush/scena
 export default function Demo() {
   const targetRef = React.useRef();
@@ -53,7 +55,10 @@ export default function Demo() {
 
   const onScaleCb = (e) => {
     e.target.style.transform = e.drag.transform;
+    e.target.style.width = `${e.width}px`;
+    e.target.style.height = `${e.height}px`;
     const cValues = e.target.getBoundingClientRect();
+    console.log(cValues);
     setEles(updateHeightWidth(cValues, e.target.id));
   };
 
@@ -122,6 +127,10 @@ export default function Demo() {
             moveableRef = e;
           }}
           target={currentRef}
+          ables={[DimensionViewable]}
+          props={{
+            dimensionViewable: true,
+          }}
           scalable={scale}
           warpable={allWrap}
           draggable={true}
@@ -132,13 +141,21 @@ export default function Demo() {
           onDrag={(e) => {
             e.target.style.transform = e.transform;
           }}
+          onResize={(e) => {
+            e.target.style.width = `${e.width}px`;
+            e.target.style.height = `${e.height}px`;
+            e.target.style.transform = e.drag.transform;
+          }}
+          onRotate={(e) => {
+            e.target.style.transform = e.drag.transform;
+          }}
           throttleScale={0}
           onScale={onScaleCb}
           renderDirections={['nw', 'n', 'ne', 'w', 'e', 'sw', 's', 'se']}
           onWarp={(e) => {
             e.target.style.transform = e.transform;
             const cValues = e.target.getBoundingClientRect();
-            console.log('===> cValues ', cValues, e.target.id);
+            // console.log('===> cValues ', cValues, e.target.id);
             setEles(updateHeightWidth(cValues, e.target.id));
             // console.log(cValues.height, cValues.width);
             // console.log('==>> currentRef ', moveableRef);
@@ -148,6 +165,30 @@ export default function Demo() {
             //   )} `
             // );
           }}
+          snappable={true}
+          snapDirections={{
+            top: true,
+            left: true,
+            bottom: true,
+            right: true,
+            center: true,
+            middle: true,
+          }}
+          elementSnapDirections={{
+            top: true,
+            left: true,
+            bottom: true,
+            right: true,
+            center: true,
+            middle: true,
+          }}
+          maxSnapElementGuidelineDistance={70}
+          elementGuidelines={[
+            {
+              element: '.target',
+              className: 'green',
+            },
+          ]}
         />
       </div>
     </div>
